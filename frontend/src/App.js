@@ -106,7 +106,7 @@ function App() {
 
       {/* Footer */}
       <footer className="footer">
-        <p>Powered by OpenAI/Groq · Built with Flask & React</p>
+        <p>Powered by Groq · Built with Flask & React</p>
       </footer>
     </div>
   );
