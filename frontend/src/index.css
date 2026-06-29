@@ -1,0 +1,58 @@
+/* index.css - Global styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --bg-base: #060a0e;
+  --bg-surface: #0d1520;
+  --bg-elevated: #131f2e;
+  --bg-input: #0a1118;
+  --border: #1a2a3a;
+  --border-bright: #243650;
+  --accent: #00c9a7;
+  --accent-dim: #009e84;
+  --accent-glow: rgba(0, 201, 167, 0.12);
+  --accent-glow-strong: rgba(0, 201, 167, 0.22);
+  --text-primary: #e8f0f8;
+  --text-secondary: #7a94b0;
+  --text-dim: #354d66;
+  --success: #00c9a7;
+  --warning: #f0a500;
+  --danger: #e05252;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 40px rgba(0, 201, 167, 0.08);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 201, 167, 0.06) 0%, transparent 60%),
+    linear-gradient(rgba(0, 201, 167, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 201, 167, 0.025) 1px, transparent 1px);
+  background-size: 100% 100%, 48px 48px, 48px 48px;
+}
+
+html { scroll-behavior: smooth; }
+ul, ol { list-style: none; }
+img { max-width: 100%; display: block; }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-surface); }
+::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
+
+::selection { background: var(--accent-glow-strong); color: var(--accent); }

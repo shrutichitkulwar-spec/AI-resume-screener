@@ -1,0 +1,14 @@
+# render.yaml
+# This file tells Render.com how to deploy our Flask backend
+# Render reads this automatically when you connect your GitHub repo
+
+services:
+  - type: web                          # We're deploying a web service
+    name: ai-resume-screener-api       # Name shown in Render dashboard
+    runtime: python                    # We're using Python
+    rootDir: backend                   # The backend/ folder is our Python app
+    buildCommand: pip install -r requirements.txt   # Install dependencies
+    startCommand: gunicorn app:app     # Start Flask with gunicorn (production server)
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false                    # You'll add this manually in the Render dashboard

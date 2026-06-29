@@ -1,0 +1,19 @@
+# .gitignore for the backend folder
+# These files should NEVER be uploaded to GitHub
+
+# Secret keys and environment variables
+.env
+
+# Python cache files (auto-generated, not needed)
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment folder (install locally, don't commit)
+venv/
+env/
+.venv/
+
+# OS files
+.DS_Store
+Thumbs.db

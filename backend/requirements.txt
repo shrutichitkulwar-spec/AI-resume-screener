@@ -1,0 +1,9 @@
+# requirements.txt
+# These are the Python packages our Flask backend needs
+# Install them all at once with: pip install -r requirements.txt
+
+flask==3.0.0           # The web framework that runs our server
+flask-cors==4.0.0      # Allows the React frontend to talk to Flask (cross-origin requests)
+openai==1.12.0         # Official OpenAI Python library to call GPT models
+python-dotenv==1.0.0   # Reads our API keys from the .env file
+gunicorn==21.2.0       # Production web server (used by Render to deploy Flask)

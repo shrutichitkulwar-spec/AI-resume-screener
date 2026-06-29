@@ -1,0 +1,69 @@
+/* ErrorMessage.css - Styles for the error banner */
+
+.error-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(224, 82, 82, 0.08);
+  border: 1px solid rgba(224, 82, 82, 0.3);
+  border-left: 4px solid var(--danger);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 20px 0;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.error-icon {
+  color: var(--danger);
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.error-content {
+  flex: 1;
+}
+
+.error-title {
+  color: var(--danger);
+  font-size: 14px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.error-text {
+  color: var(--text-secondary);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+/* Dismiss button (the X) */
+.error-dismiss {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  transition: color 0.2s, background 0.2s;
+  line-height: 1;
+}
+
+.error-dismiss:hover {
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+}

@@ -1,0 +1,69 @@
+/* LoadingSpinner.css - Styles for the loading state */
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  gap: 20px;
+}
+
+/* ── The Ring Spinner ────────────────────────────────────────────────────── */
+.loading-ring {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+/* The static outer ring (track) */
+.ring-inner {
+  position: absolute;
+  inset: 0;
+  border: 3px solid var(--border);
+  border-radius: 50%;
+}
+
+/* The orbiting animated part */
+.ring-orbit {
+  position: absolute;
+  inset: 0;
+  animation: orbit 1.2s linear infinite;  /* Rotates forever */
+}
+
+/* The dot that travels around the ring */
+.ring-dot {
+  position: absolute;
+  top: -3px;       /* Sits on the edge of the ring */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--accent);  /* Glow effect */
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Text below the spinner ──────────────────────────────────────────────── */
+.loading-message {
+  color: var(--text-primary);
+  font-size: 15px;
+  font-weight: 500;
+  /* Fade in each new message */
+  animation: fadeMessage 0.4s ease;
+}
+
+@keyframes fadeMessage {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.loading-hint {
+  color: var(--text-dim);
+  font-size: 13px;
+}
