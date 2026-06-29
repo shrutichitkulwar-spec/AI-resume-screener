@@ -1,6 +1,3 @@
-// App.js - The root component of our React application
-// This component ties everything together: the form and the results
-
 import React, { useState } from 'react';
 import ResumeForm from './components/ResumeForm';
 import ResultsPanel from './components/ResultsPanel';
@@ -9,32 +6,26 @@ import ErrorMessage from './components/ErrorMessage';
 import './App.css';
 
 function App() {
-  // ── State Variables ────────────────────────────────────────────────────────
-  // useState() creates a variable that, when changed, automatically re-renders the UI
+  // ── State ───────────────────────────────────────────────
+  const [results, setResults] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const [results, setResults] = useState(null);       // Stores the API response
-  const [isLoading, setIsLoading] = useState(false);  // True while waiting for API
-  const [error, setError] = useState(null);           // Stores any error message
+  // ✅ Backend URL (works for both local + production)
+  const BACKEND_URL =
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:5050";
 
-  // ── Handle Form Submission ─────────────────────────────────────────────────
-  // This function is called when the user clicks "Screen My Resume"
-  // It receives the resume and job description from the ResumeForm component
+  // ── Handle Form Submission ──────────────────────────────
   const handleScreenResume = async (resumeText, jobDescription) => {
-    // Reset previous results and errors
     setResults(null);
     setError(null);
-    setIsLoading(true);  // Show the loading spinner
+    setIsLoading(true);
 
     try {
-      // Determine the backend URL
-      // In development: uses localhost (set in package.json proxy or .env)
-      // In production: uses the Render URL from the environment variable
-      const backendUrl = 'http://127.0.0.1:5000';
-      // Make a POST request to our Flask backend
-      const response = await fetch(`${backendUrl}/api/screen`, {
+      const response = await fetch(`${BACKEND_URL}/api/screen`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',  // Tell the server we're sending JSON
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           resume: resumeText,
@@ -42,54 +33,54 @@ function App() {
         }),
       });
 
-      // Parse the JSON response from the server
       const data = await response.json();
 
-      // If the server returned an error (e.g. 400, 500), throw it
       if (!response.ok) {
-        throw new Error(data.error || 'An unexpected error occurred.');
+        throw new Error(data.error || 'Something went wrong');
       }
 
-      // If successful, store the results and display them
       setResults(data);
 
-      // Smoothly scroll down to show the results
+      // Scroll to results
       setTimeout(() => {
-        document.getElementById('results')?.scrollIntoView({ behavior: 'smooth' });
+        document
+          .getElementById('results')
+          ?.scrollIntoView({ behavior: 'smooth' });
       }, 100);
 
     } catch (err) {
-      // If anything went wrong, show the error message
-      setError(err.message || 'Failed to connect to the server. Is the backend running?');
+      setError(
+        err.message || 'Failed to connect to the server. Backend might be down.'
+      );
     } finally {
-      // Always hide the loading spinner when done (success or failure)
       setIsLoading(false);
     }
   };
 
-  // ── Reset Everything ───────────────────────────────────────────────────────
+  // ── Reset ───────────────────────────────────────────────
   const handleReset = () => {
     setResults(null);
     setError(null);
   };
 
-  // ── Render the UI ──────────────────────────────────────────────────────────
+  // ── UI ──────────────────────────────────────────────────
   return (
     <div className="app">
-      {/* ── Header ─────────────────────────────────────────────── */}
+      {/* Header */}
       <header className="header">
         <div className="header-inner">
           <div className="logo">
             <span className="logo-icon">◈</span>
             <span className="logo-text">ResumeAI</span>
           </div>
-          <p className="tagline">Match your resume to any job — instantly</p>
+          <p className="tagline">
+            Match your resume to any job — instantly
+          </p>
         </div>
       </header>
 
-      {/* ── Main Content ───────────────────────────────────────── */}
+      {/* Main */}
       <main className="main">
-        {/* The form where users paste their resume and job description */}
         <ResumeForm
           onSubmit={handleScreenResume}
           onReset={handleReset}
@@ -97,13 +88,15 @@ function App() {
           hasResults={!!results}
         />
 
-        {/* Show a loading spinner while waiting for the API */}
         {isLoading && <LoadingSpinner />}
 
-        {/* Show an error message if something went wrong */}
-        {error && <ErrorMessage message={error} onDismiss={() => setError(null)} />}
+        {error && (
+          <ErrorMessage
+            message={error}
+            onDismiss={() => setError(null)}
+          />
+        )}
 
-        {/* Show the results once we have them */}
         {results && !isLoading && (
           <div id="results">
             <ResultsPanel results={results} />
@@ -111,9 +104,9 @@ function App() {
         )}
       </main>
 
-      {/* ── Footer ─────────────────────────────────────────────── */}
+      {/* Footer */}
       <footer className="footer">
-        <p>Powered by OpenAI GPT · Built with Flask & React</p>
+        <p>Powered by OpenAI/Groq · Built with Flask & React</p>
       </footer>
     </div>
   );
